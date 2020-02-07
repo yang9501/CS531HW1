@@ -21,17 +21,18 @@ int main() {
 
 	for( int i = 0; i < 10; i++) {
 		printf("Enter string %d: ", i + 1);
-		fgets(buffer, 26, stdin);
 
 		//Perform string checks for length, characters, and duplicate strings
 		wrongLength = true, badCharExists = true, duplicateStringsExist = true;
-		while( wrongLength || badCharExists/* || OR ONE OF THE DISALLOWED CHARACTERS ARE WITHIN THE STRING OR IS A DUPLICATE STRING*/) {
+		while( wrongLength || badCharExists || duplicateStringsExist) {
+			fgets(buffer, 26, stdin);
 			//Checking length
 			if(strlen(buffer) < 2 || strlen(buffer) > 25 || strchr(buffer, '\n') == NULL) {
 				printf("Please enter a string between 1 and 25 characters: ");
+				wrongLength = true;
 				if(strchr(buffer, '\n') == NULL) {
 					int c;
-					while((c = getc(stdin)) != '\n' && c != EOF);
+					while((c = fgetc(stdin)) != '\n' && c != EOF);
 				}
 			}
 			else {
@@ -42,7 +43,7 @@ int main() {
 			int size = sizeof(toCheck)/sizeof(toCheck[0]);
 			for(int j = 0; j < size; j++) {
 				if(strchr(buffer, toCheck[j]) != NULL) {
-					printf("The characters !, @, #, $, %%, ^, (, ) are not allowed.  Please reenter a string.\n");
+					printf("The characters !, @, #, $, %%, ^, (, ) are not allowed.  Please reenter a string.");
 					badCharExists = true;
 					break;
 				}
@@ -52,20 +53,31 @@ int main() {
 			}
 
 			//Checking duplicate Strings
+			for (int k = 0; k < i; k++) {
+				if(strcmp(storage[k], buffer) == 0){
+					duplicateStringsExist = true;
+					printf("Please enter an unique string.");
+					break;
+				}
+				else {
+					duplicateStringsExist = false;
+				}
+			}
+			//First string input has nothing to compare to.
+			if(i == 0) {
+				duplicateStringsExist = false;
+			}
 
-
-			if(wrongLength || badCharExists /*|| duplicateStringsExist*/) {
-				fgets(buffer, 26, stdin);
+			//If all conditions are fulfilled, break from the user input request loop
+			if(!wrongLength && !badCharExists && !duplicateStringsExist) {
+				break;
 			}
 		}
 		
+		//All conditions fulfilled, store the string 
 		strcpy(storage[i], buffer);
 		printf("Storage[%d]: %s, length: %lu\n", i, storage[i], strlen(storage[i]));
-		
-
 	}
-
-	printf("Size of char buffer is : %lu\n", strlen(buffer));
 
 	//2. Sort the strings based on ASCII value
 	//3. Print the sorted strings by value in ascending or descending value, depending on user input
