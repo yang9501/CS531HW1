@@ -99,13 +99,14 @@ int main() {
 	for( int x = 0; x < 10; x++) {
 		printf("%d: %s\n", x + 1, storage[x]);
 	}
+
 	//3. Print the sorted strings by value in ascending or descending value, depending on user input
 	bool improperInput = true;
 	while (improperInput) {		
 		printf("Choose a output order, (A)scending or (D)escending.  Please enter (A) or (D): \n");
-		fgets(orderBuffer, sizeof(orderBuffer), stdin);
+		fgets(orderBuffer, 2*sizeof(orderBuffer), stdin);
 		printf("Input length: %lu\n", strlen(orderBuffer));
-		if(strlen(orderBuffer) != 1 || strchr(buffer, '\n') == NULL) {
+		if(strlen(orderBuffer) != 2 || strchr(buffer, '\n') == NULL) {
 			printf("Enter (A) or (D) for (A)scending or (D)escending.\n");
 			if(strchr(orderBuffer, '\n') == NULL) {
 				int c;
@@ -114,13 +115,13 @@ int main() {
 			improperInput = true;
 			continue;
 		}
-		if(strcmp(orderBuffer, "A") == 0) {
+		if(strcmp(orderBuffer, "A\n") == 0) {
 			for(int i = 0; i < 10; i++) {
 				printf("%s\n", storage[i]);
 			}
 			improperInput = false;
 		}
-		else if (strcmp(orderBuffer, "D") == 0) {
+		else if (strcmp(orderBuffer, "D\n") == 0) {
 			for(int i = 9; i >= 0; i--) {
 				printf("%s\n", storage[i]);
 			}
@@ -129,5 +130,7 @@ int main() {
 	}
 
 	//4. Print and label the string with the highest ASCII value and the lowest value.
+	printf("The string with the highest ASCII value is %s\n", storage[9]);
+	printf("The string with the lowest ASCII value is %s\n", storage[0]);
 	return 0;
 }
