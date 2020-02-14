@@ -1,11 +1,14 @@
+/*
+CS531 HW1
+by Justin Yang
+jyang52
+G01135050
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
-//Things to decide. 
-//	1. Hashing would be faster than iteratively detecting duplicate strings.  
-//	2. Do I want to take the time to implement something more sophisticated than bubble sort?
 
 int compareString(void const * a, void const * b) {
 	char const * aa = (char const *) a;
