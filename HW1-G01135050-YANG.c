@@ -98,12 +98,14 @@ void printInOrder(char storage[10][26], char buffer[26], char orderBuffer[2]) {
 			continue;
 		}
 		if(strcmp(orderBuffer, "A\n") == 0) {
+			printf("Ascending order:\n");
 			for(int i = 0; i < 10; i++) {
 				printf("%s\n", storage[i]);
 			}
 			improperInput = false;
 		}
 		else if (strcmp(orderBuffer, "D\n") == 0) {
+			printf("Descending order:\n");
 			for(int i = 9; i >= 0; i--) {
 				printf("%s\n", storage[i]);
 			}
