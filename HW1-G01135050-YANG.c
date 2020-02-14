@@ -121,7 +121,7 @@ void printHighAndLowValues(char storage[10][26]) {
 }
 
 int main() {
-	//Initialize date storage
+	//Initialize data storage
 	char buffer[26];
 	char orderBuffer[2];
 	char storage[10][26];
